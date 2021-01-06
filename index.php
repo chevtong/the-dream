@@ -8,35 +8,43 @@
   </head>
 
   <?php 
-if(isset($_POST["submit"])){
 
-    $amount = $_POST["amount"];
-    $fromCur = $_POST["from-curreny"];
-    $toCur = $_POST["to-curreny"];
+$amount = $_POST["amount"];
+$fromCur = $_POST["from-curreny"];
+$toCur = $_POST["to-curreny"];
 
-    if($fromCur == "usd" && $toCur == "euro"){
-        $result = "{$amount} USD = ". $amount * 0.81 ."EURO";
-    }
+if (empty($amount)) {
 
-    if($fromCur == "gbp" && $toCur == "euro"){
-      $result = "{$amount} GBP = ". $amount * 1.1 ."EURO";
-  }
 
-  if($fromCur == "jpy" && $toCur == "euro"){
-    $result = "{$amount} JPY = ".$amount * 0.0079 ."EURO";
-    
+  $result = "Please ente a value";
+  
+} else {
+  
+  if($fromCur == "usd" && $toCur == "euro"){
+             
+          $result = "{$amount} USD = ". $amount * 0.81 ."EURO";
+
+  } else if($fromCur == "gbp" && $toCur == "euro"){
+
+          $result = "{$amount} GBP = ". $amount * 1.1 ."EURO";
+
+  } else if($fromCur == "jpy" && $toCur == "euro"){
+
+        $result = "{$amount} JPY = ".$amount * 0.0079 ."EURO";     
+  } 
 }
-}
+
 
 ?>
 
   <body>
     <div class="container-calculator">
-      <form action="" method="POST">
+    <form method="post" action="">  
         <div class="from-currency">
           <h3>From<select name="from-curreny" id=""></h3>
-          <option value="usd">USD</option>
           <option value="gbp">GBP</option>
+          <option value="usd">USD</option>
+          
             <option value="jpy">JPY</option>
           </select>
         </div>
@@ -44,6 +52,7 @@ if(isset($_POST["submit"])){
         <div class="value">
             <label>Value</label>
             <input type="number" name="amount"  />
+         
           </div>
 
         <div class="to-currency">
@@ -61,11 +70,10 @@ if(isset($_POST["submit"])){
         <button type="submit" name="submit" value="convert">Convert</button>
       </form>
 
-      <div class="div">
-        
-        <?php 
-        echo $result;
+      <div class="result">
+       <?php echo $result;
         ?>
+        
       </div>
   
     </div>
