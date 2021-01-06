@@ -1,81 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
+
+    <link rel="icon" type="image/png" href="style/coin.png">
+    <link rel="stylesheet" href="style/style.css">
     <title>The Dream</title>
-  </head>
+</head>
 
-  <?php 
+<?php 
 
-$amount = $_POST["amount"];
-$fromCur = $_POST["from-curreny"];
-$toCur = $_POST["to-curreny"];
+$rate = [
+  "usd" => 0.81,
+  "gbp" => 1.1,
+  "jpy" => 0.0079,
+  "aud" => 0.63,
+  "inr" => 0.011, 
+  "cad" => 0.63,
+];
 
-if (empty($amount)) {
+$exchangeRate = "";
+$result = "";
 
 
-  $result = "Please ente a value";
+if(isset($_POST["convert"])){
+
+  $amount = $_POST["amount"];
+
+    if (empty($amount)) {
+
+      $result = "Please ente a value";
+      
+    } else {
+
+      $fromCur = $_POST["from-curreny"];
+
+      $exchangeRate = "1 {$fromCur} = ". $rate["$fromCur"] . " euro";
+ 
+      $convertValue =  round($amount * $rate["$fromCur"], 2);
+
+      $result = "{$amount} {$fromCur} = {$convertValue} euro";
   
-} else {
-  
-  if($fromCur == "usd" && $toCur == "euro"){
-             
-          $result = "{$amount} USD = ". $amount * 0.81 ."EURO";
+    }
 
-  } else if($fromCur == "gbp" && $toCur == "euro"){
+}; 
+//TODO: fix the swap button to exchange the currencies 
+//else if(isset($_POST["swap"])){
 
-          $result = "{$amount} GBP = ". $amount * 1.1 ."EURO";
-
-  } else if($fromCur == "jpy" && $toCur == "euro"){
-
-        $result = "{$amount} JPY = ".$amount * 0.0079 ."EURO";     
-  } 
-}
+//   
+// }
 
 
 ?>
 
-  <body>
+<body>
     <div class="container-calculator">
-    <form method="post" action="">  
-        <div class="from-currency">
-          <h3>From<select name="from-curreny" id=""></h3>
-          <option value="gbp">GBP</option>
-          <option value="usd">USD</option>
-          
-            <option value="jpy">JPY</option>
-          </select>
+        <h1>Currency Converter</h1>
+        <form method="post" action="">
+
+
+            <div class="from-currency">
+                <h3>Local currency</h3>
+                <select name="from-curreny" id="">
+                    <option value="gbp">UK - GBP</option>
+                    <option value="usd">US - USD</option>
+                    <option value="aud">Australia - AUD</option>
+                    <option value="cad">Canada - CAD</option>
+
+                    <option value="inr">India - INR</option>
+                    <option value="jpy">Japan - JPY</option>
+                </select>
+            </div>
+
+            <div class="to-currency">
+                <h3>Home currency</h3>
+                <select name="to-curreny" id="">
+
+                    <option value="euro">Euro</option>
+
+                </select>
+            </div>
+
+            <div class="value">
+                <label>
+                    <h3>Convert Value</h3>
+                </label>
+                <input type="number" name="amount" />
+
+            </div>
+
+
+            <div class="convert-btn">
+                <button type="submit" name="convert" value="convert">Convert</button>
+            </div>
+            <div class="swap-btn">
+                <button type="submit" name="swap" value="swap" id="swap-btn" disabled>SWAP</button>
+            </div>
+            <div class="divide-line"></div>
+        </form>
+
+
+        <div class="exchange-rate">
+            <h3><?php 
+        echo $exchangeRate
+        ?></h3>
+
         </div>
 
-        <div class="value">
-            <label>Value</label>
-            <input type="number" name="amount"  />
-         
-          </div>
+        <div class="result">
+            <h3> <?php 
+       echo $result;
+        ?></h3>
 
-        <div class="to-currency">
-          <h3>To<select name="to-curreny" id=""></h3>
-
-          <option value="euro">Euro</option>
-
-        </select>
         </div>
 
-       
-
-        
-
-        <button type="submit" name="submit" value="convert">Convert</button>
-      </form>
-
-      <div class="result">
-       <?php echo $result;
-        ?>
-        
-      </div>
-  
     </div>
-  </body>
+</body>
+
 </html>
