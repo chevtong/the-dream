@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
     <link rel="icon" type="image/png" href="style/coin.png">
     <link rel="stylesheet" href="style/style.css">
     <title>The Dream</title>
@@ -24,7 +22,6 @@ $rate = [
 
 $exchangeRate = "";
 $result = "";
-
 
 if(isset($_POST["convert"])){
 
@@ -58,18 +55,18 @@ if(isset($_POST["convert"])){
 
 <body>
     <div class="container-calculator">
-        <h1>Currency Converter</h1>
-        <form method="post" action="">
 
+        <h1>Currency Converter</h1>
+        
+        <form method="post" action="">
 
             <div class="from-currency">
                 <h3>Local currency</h3>
-                <select name="from-curreny" id="">
+                <select name="from-curreny">
                     <option value="gbp">UK - GBP</option>
                     <option value="usd">US - USD</option>
                     <option value="aud">Australia - AUD</option>
                     <option value="cad">Canada - CAD</option>
-
                     <option value="inr">India - INR</option>
                     <option value="jpy">Japan - JPY</option>
                 </select>
@@ -77,44 +74,34 @@ if(isset($_POST["convert"])){
 
             <div class="to-currency">
                 <h3>Home currency</h3>
-                <select name="to-curreny" id="">
-
+                <select name="to-curreny">
                     <option value="euro">Euro</option>
-
                 </select>
             </div>
 
             <div class="value">
-                <label>
-                    <h3>Convert Value</h3>
-                </label>
+                <h3>Convert Value</h3>
                 <input type="number" name="amount" />
-
             </div>
-
 
             <div class="convert-btn">
                 <button type="submit" name="convert" value="convert">Convert</button>
             </div>
+
             <div class="swap-btn">
                 <button type="submit" name="swap" value="swap" id="swap-btn" disabled>SWAP</button>
             </div>
+
             <div class="divide-line"></div>
+
         </form>
 
-
         <div class="exchange-rate">
-            <h3><?php 
-        echo $exchangeRate
-        ?></h3>
-
+            <h3><?= echo $exchangeRate; ?></h3>
         </div>
 
         <div class="result">
-            <h3> <?php 
-       echo $result;
-        ?></h3>
-
+            <h3> <?= echo $result; ?></h3>
         </div>
 
     </div>
